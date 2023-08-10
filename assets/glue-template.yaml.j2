@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Glue Job, Crawlers, S3 Bucket Creation, and Athena Querying
+
+Resources:
+  DataBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: "{{ prefix }}-bucket"
+
+  GlueJob1:
+    Type: 'AWS::Glue::Job'
+    Properties:
+      Role: !Ref GlueRole
+      Command:
+        Name: 'glueetl'
+        ScriptLocation: !Sub 's3://${DataBucket}/scripts/job1/script.py'
+      DefaultArguments:
+        "--TempDir": !Sub 's3://${DataBucket}/temp-dir/'
+        "--enable-notebook": "true"
+        "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
+        "--source_crawler": !Ref SourceCrawler
+        "--target_crawler": !Ref TargetCrawler
+      GlueVersion: '2.0'
+      MaxRetries: 3
+      Name: "{{ prefix }}GlueJob1"
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
+
+  GlueJob2:
+    Type: 'AWS::Glue::Job'
+    Properties:
+      Role: !Ref GlueRole
+      Command:
+        Name: 'glueetl'
+        ScriptLocation: !Sub 's3://${DataBucket}/scripts/job2/script.py'
+      DefaultArguments:
+        "--TempDir": !Sub 's3://${DataBucket}/temp-dir/'
+        "--enable-notebook": "true"
+        "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
+        "--source_crawler": !Ref SourceCrawler
+        "--target_crawler": !Ref TargetCrawler
+      GlueVersion: '2.0'
+      MaxRetries: 3
+      Name: "{{ prefix }}GlueJob2"
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
+
+  SourceCrawler:
+    Type: 'AWS::Glue::Crawler'
+    Properties:
+      Role: !Ref GlueRole
+      DatabaseName: '{{ prefix }}sourcedatabase'
+      Schedule:
+        ScheduleExpression: 'cron(0 12 * * ? *)'
+      Targets:
+        S3Targets:
+          - Path: !Sub 's3://${DataBucket}/source'
+      Name: "{{ prefix }}SourceCrawler"
+
+  TargetCrawler:
+    Type: 'AWS::Glue::Crawler'
+    Properties:
+      Role: !Ref GlueRole
+      DatabaseName: '{{ prefix }}targetdatabase'
+      Schedule:
+        ScheduleExpression: 'cron(0 12 * * ? *)'
+      Targets:
+        S3Targets:
+          - Path: !Sub 's3://${DataBucket}/landing'
+      Name: "{{ prefix }}TargetCrawler"
+
+  sourcedatabase:
+    Type: 'AWS::Glue::Database'
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: "{{ prefix }}sourcedatabase"
+        Description: '{{ prefix }} Source Catalog'
+
+  targetdatabase:
+    Type: 'AWS::Glue::Database'
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: "{{ prefix }}targetdatabase"
+        Description: '{{ prefix }} Target Catalog'
+
+  GlueRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Principal:
+              Service: 'glue.amazonaws.com'
+            Action: 'sts:AssumeRole'
+      Path: '/'
+      Policies:
+        - PolicyName: "{{ prefix }}GluePolicy"
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 's3:*'
+                  - 'glue:*'
+                Resource: '*'

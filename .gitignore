@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Crawl artifacts
+.crawl/
+
+# Crawler and Glue job logs
+logs/
+
+# AWS CLI history
+.aws/
+
+# Spark artifacts
+metastore_db/
+spark-warehouse/
+*.parquet
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Environment variables and secrets
+.env
+.secrets/
+
+# Credentials file
+credentials.json
+
+# Local data files
+*.csv
+*.json
+
+# Virtual environment
+venv/
+.env/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Build and distribution
+build/
+dist/
+*.egg-info/
+
+# OS generated files
+.DS_Store
+.Thumbs.db
