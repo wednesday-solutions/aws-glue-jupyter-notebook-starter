@@ -1,6 +1,6 @@
 #!/bin/sh -e -x
 
-PROJECT_NAME="$1-25"
+PROJECT_NAME="$1"
 STACK_NAME="$PROJECT_NAME-cf-stack"
 REGION="$2"
 FILE_PATH="./data/raw/sample.csv"
@@ -51,6 +51,7 @@ for JOB_DIR in ./src/jobs/job*; do
   else
     echo "Failed to upload $JOB_NAME/script.py."
   fi
+  echo "\nBUCKET_NAME=$BUCKET_NAME" >> $JOB_DIR/.env
 done
 
 aws glue start-crawler --name $PROJECT_NAME"SourceCrawler" --region $REGION

@@ -1,11 +1,15 @@
-create-glue-job:
-	@echo "running create-glue-job"
+infra:
+	@echo "running infra...  $(name) $(region)"
+	./scripts/create-glue-job.sh $(name) $(region)
 
-create-s3-bucket:
-	@echo "running create-s3-bucket"
+local:
+	@echo "running local... "
+	./scripts/run.sh
 
-create-iam-role:
-	@echo "running create-iam-role"
+env-to-args: 
+	@echo "running env-to-args..."
+	./scripts/env-to-args.sh
 
-setup: create-iam-role create-s3-bucket create-glue-job
-	@echo "Setup done..."
+- notebooks-to-scripts: 
+	@echo "- notebooks-to-scripts ..."
+	./scripts/convert-notebooks-to-scripts.sh

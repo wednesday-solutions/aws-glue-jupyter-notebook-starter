@@ -1,12 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: AWS Glue Job, Crawlers, S3 Bucket Creation, and Athena Querying
-
 Resources:
   DataBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: "sample-ws-mac-25-bucket"
-
+      BucketName: "sample-ws-mac-192-bucket"
   GlueJob1:
     Type: 'AWS::Glue::Job'
     Properties:
@@ -20,12 +18,13 @@ Resources:
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
         "--source_crawler": !Ref SourceCrawler
         "--target_crawler": !Ref TargetCrawler
+        --SOURCE_CRAWLER: sample-ws-mac-23SourceCrawler
+        --JOB_NAME: job1
       GlueVersion: '2.0'
       MaxRetries: 3
-      Name: "sample-ws-mac-25GlueJob1"
+      Name: "sample-ws-mac-192GlueJob1"
       ExecutionProperty:
         MaxConcurrentRuns: 1
-
   GlueJob2:
     Type: 'AWS::Glue::Job'
     Properties:
@@ -39,52 +38,49 @@ Resources:
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
         "--source_crawler": !Ref SourceCrawler
         "--target_crawler": !Ref TargetCrawler
+        --JOB_NAME: "job2"
+        --SOURCE_CRAWLER: sample-ws-mac-23SourceCrawler
       GlueVersion: '2.0'
       MaxRetries: 3
-      Name: "sample-ws-mac-25GlueJob2"
+      Name: "sample-ws-mac-192GlueJob2"
       ExecutionProperty:
         MaxConcurrentRuns: 1
-
   SourceCrawler:
     Type: 'AWS::Glue::Crawler'
     Properties:
       Role: !Ref GlueRole
-      DatabaseName: 'sample-ws-mac-25sourcedatabase'
+      DatabaseName: 'sample-ws-mac-192sourcedatabase'
       Schedule:
         ScheduleExpression: 'cron(0 12 * * ? *)'
       Targets:
         S3Targets:
           - Path: !Sub 's3://${DataBucket}/source'
-      Name: "sample-ws-mac-25SourceCrawler"
-
+      Name: "sample-ws-mac-192SourceCrawler"
   TargetCrawler:
     Type: 'AWS::Glue::Crawler'
     Properties:
       Role: !Ref GlueRole
-      DatabaseName: 'sample-ws-mac-25targetdatabase'
+      DatabaseName: 'sample-ws-mac-192targetdatabase'
       Schedule:
         ScheduleExpression: 'cron(0 12 * * ? *)'
       Targets:
         S3Targets:
           - Path: !Sub 's3://${DataBucket}/landing'
-      Name: "sample-ws-mac-25TargetCrawler"
-
+      Name: "sample-ws-mac-192TargetCrawler"
   sourcedatabase:
     Type: 'AWS::Glue::Database'
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: "sample-ws-mac-25sourcedatabase"
-        Description: 'sample-ws-mac-25 Source Catalog'
-
+        Name: "sample-ws-mac-192sourcedatabase"
+        Description: 'sample-ws-mac-192 Source Catalog'
   targetdatabase:
     Type: 'AWS::Glue::Database'
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: "sample-ws-mac-25targetdatabase"
-        Description: 'sample-ws-mac-25 Target Catalog'
-
+        Name: "sample-ws-mac-192targetdatabase"
+        Description: 'sample-ws-mac-192 Target Catalog'
   GlueRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -97,7 +93,7 @@ Resources:
             Action: 'sts:AssumeRole'
       Path: '/'
       Policies:
-        - PolicyName: "sample-ws-mac-25GluePolicy"
+        - PolicyName: "sample-ws-mac-192GluePolicy"
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
