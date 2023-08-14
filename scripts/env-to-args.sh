@@ -21,7 +21,7 @@ for JOB_DIR in src/jobs/*; do
     # Define the yq command to append the key and value to the YAML file
     STYLE="style=\"double\""
 
-    yq_command="yq e '$YAML_PATH.\"--$key\" = \"$value\" |  $YAML_PATH style=\"double\" ' -i $GLUE_FILE"
+    yq_command="yq e '$YAML_PATH.\"--$key\" = \"$value\"' -i $GLUE_FILE"
     eval $yq_command
   done < "$JOB_DIR/.env"
   # yq $YAML_PATH.' ... style="double" |= .' $GLUE_FILE

@@ -15,6 +15,7 @@ changes=$(aws cloudformation describe-change-set \
   --change-set-name $STACK_NAME-change-set \
   --query 'StatusReason')
 
+
 echo $changes
 
 # If changes are present, execute the change set

@@ -17,8 +17,9 @@ Resources:
         "--enable-notebook": "true"
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
         --JOB_NAME: job1
-        --SOURCE_CRAWLER: glue-jupyter-wsSourceCrawler
-        --BUCKET_NAME: glue-jupyter-ws-bucket
+        --SOURCE_CRAWLER: glue-jupyter-ws-3SourceCrawler
+        --BUCKET_NAME: glue-jupyter-ws-3-bucket
+        --additional-python-modules: s3://glue-jupyter-ws-3-bucket/lib/utils-0.1-py3-none-any.whl
       GlueVersion: '2.0'
       MaxRetries: 3
       Name: "glue-jupyter-ws-3GlueJob1"
@@ -36,8 +37,9 @@ Resources:
         "--enable-notebook": "true"
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
         --JOB_NAME: "job2"
-        --SOURCE_CRAWLER: glue-jupyter-wsSourceCrawler
-        --BUCKET_NAME: glue-jupyter-ws-bucket
+        --SOURCE_CRAWLER: glue-jupyter-ws-3SourceCrawler
+        --BUCKET_NAME: glue-jupyter-ws-3-bucket
+        --additional-python-modules: s3://glue-jupyter-ws-3-bucket/lib/utils-0.1-py3-none-any.whl
       GlueVersion: '2.0'
       MaxRetries: 3
       Name: "glue-jupyter-ws-3GlueJob2"
