@@ -16,6 +16,7 @@ This comes with
 ├── Dockerfile                                      |-> Custom Dockerfile to run Glue locally with support for .env
 ├── Makefile                                        |-> Makefile that contains all automation
 ├── README.md                                       |
+│
 ├── config                                          |-> Contains configurable properties
 │   ├── properties.yml                              |-> make infra will auto-populates the bucket_name which is then read in the CD script
 ├── assets                                          |-> This folder will contain all IaC related assets
@@ -69,4 +70,9 @@ The Makefile contains the following commands
 - notebooks-to-scripts: automation to convert your notebooks to scripts recursively across jobs
     ```
     make notebooks-to-scripts
+    ```
+
+- update-infra: automation to update infra and scripts in the cd pipeline
+    ```
+    run: make update-infra name=aws-glue-jupyter-notebook-starter region=ap-south-1
     ```
