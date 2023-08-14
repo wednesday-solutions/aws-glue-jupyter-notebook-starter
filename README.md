@@ -78,3 +78,7 @@ The Makefile contains the following commands
     ```
     run: make update-infra name=aws-glue-jupyter-notebook-starter region=ap-south-1
     ```
+- teardown-infra: automation to delete contents of s3 and tearn dow n created infr
+    ```
+    make teardown-infra   
+    ```        
