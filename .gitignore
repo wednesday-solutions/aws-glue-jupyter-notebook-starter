@@ -27,9 +27,6 @@ spark-warehouse/
 # Credentials file
 credentials.json
 
-# Local data files
-*.csv
-*.json
 
 # Virtual environment
 venv/
@@ -49,3 +46,5 @@ dist/
 .Thumbs.db
 
 src/jobs/**/scripts.py
+
+landing
