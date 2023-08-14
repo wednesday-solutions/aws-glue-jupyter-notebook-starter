@@ -60,7 +60,7 @@ jobs:
           AWS_REGION: ${{ env.REGION }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: './src/'
+          SOURCE_DIR: './src/jobs/'
           DEST_DIR: 'scripts'
           with:
           args: >
