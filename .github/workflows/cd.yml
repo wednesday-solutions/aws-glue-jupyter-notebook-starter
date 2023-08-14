@@ -95,7 +95,7 @@ jobs:
 
       # Update the Glue job to use the new script
       - name: Update Glue job
-        run: make update-infra --name=${{ env.STACK_NAME }} --region=${{ env.REGION }}
+        run: make update-infra name=${{ env.STACK_NAME }} region=${{ env.REGION }}
       
       - name: Commit Changes
         uses: EndBug/add-and-commit@v7
