@@ -1,0 +1,3 @@
+bucket_name: aws-glue-jupyter-notebook-starter-bucket
+region: ap-south-1
+stack_name: aws-glue-jupyter-notebook-starter

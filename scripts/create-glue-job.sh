@@ -1,4 +1,4 @@
-#!/bin/sh -e -x
+# #!/bin/sh
 
 PROJECT_NAME="$1"
 STACK_NAME="$PROJECT_NAME-cf-stack"
@@ -52,6 +52,10 @@ for JOB_DIR in ./src/jobs/job*; do
     echo "Failed to upload $JOB_NAME/script.py."
   fi
   echo "\nBUCKET_NAME=$BUCKET_NAME" >> $JOB_DIR/.env
+  yq_command="yq e '.bucket_name="\"$BUCKET_NAME\""' -i config/properties.yml"
+  yq_command="yq e '.region="\"$REGION\""' -i config/properties.yml"
+  yq_command="yq e '.stack_name="\"$PROJECT_NAME\""' -i config/properties.yml"
+  eval $yq_command
 done
 
 aws glue start-crawler --name $PROJECT_NAME"SourceCrawler" --region $REGION

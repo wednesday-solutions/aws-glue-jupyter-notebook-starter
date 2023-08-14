@@ -16,6 +16,8 @@ This comes with
 ├── Dockerfile                                      |-> Custom Dockerfile to run Glue locally with support for .env
 ├── Makefile                                        |-> Makefile that contains all automation
 ├── README.md                                       |
+├── config                                          |-> Contains configurable properties
+│   ├── properties.yml                              |-> make infra will auto-populates the bucket_name which is then read in the CD script
 ├── assets                                          |-> This folder will contain all IaC related assets
 │   ├── glue-template.yaml.j2                       |-> Jinja2 templating that creates various assets needed for Glue and prefixes the stack name
 │   └── output.yaml                                 |-> Output cloudformation yaml after replacing variables
@@ -50,13 +52,21 @@ This comes with
 
 The Makefile contains the following commands
 - infra: IaC for setting things up on aws. Try it out using
-    ```make infra```
+    ```
+    make infra name=aws-glue-jupyter-notebook-starter region=ap-south-1
+    ```
 
 - local: fire up the docker container and get your glue environment running on http://localhost:8888/lab
-    ``` make local```
+    ```
+    make local
+    ```
 
 - env-to-args: automation to convert environment variables into DefaultArguments for respective jobs
-    ```make env-to-args```
+    ```
+    make env-to-args
+    ```
 
 - notebooks-to-scripts: automation to convert your notebooks to scripts recursively across jobs
-    ```make notebooks-to-scripts```
+    ```
+    make notebooks-to-scripts
+    ```
