@@ -38,6 +38,8 @@ This comes with
 │   ├── create-glue-job.sh                          |-> Creates resources on AWS, copy appropriate files to the s3 buckets and trigger crawlers
 │   ├── env-to-args.sh                              |-> Recursively iterates job folders and convert env files to job parameters
 │   └── run.sh                                      |-> Runs the notebook locally
+│   └── tear-down-glue.sh                           |-> Brings down all created AWS resources 
+│   └── update-glue-job.sh                          |-> Updates the glue job along with other resources via the cd pipeline
 │
 ├── src                                             |-> Contains all glue job files and folders
     └── jobs                                        |-> Contains all glue jobs in individual folders

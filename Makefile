@@ -17,3 +17,7 @@ notebooks-to-scripts:
 update-infra: 
 	@echo "updating infrastructure $(name) $(region)"
 	./scripts/update-glue-job.sh $(name) $(region)
+
+teardown-infra:
+	@echo "running teardown infra ..."
+	./scripts/tear-down-glue.sh
