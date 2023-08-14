@@ -4,7 +4,7 @@ Resources:
   DataBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: "aws-glue-jupyter-note-ws-bucket"
+      BucketName: "aws-glue-jupyter-ws-bucket"
   GlueJob1:
     Type: 'AWS::Glue::Job'
     Properties:
@@ -22,7 +22,7 @@ Resources:
         --JOB_NAME: job1
       GlueVersion: '2.0'
       MaxRetries: 3
-      Name: "aws-glue-jupyter-note-wsGlueJob1"
+      Name: "aws-glue-jupyter-wsGlueJob1"
       ExecutionProperty:
         MaxConcurrentRuns: 1
   GlueJob2:
@@ -42,45 +42,45 @@ Resources:
         --SOURCE_CRAWLER: sample-ws-mac-23SourceCrawler
       GlueVersion: '2.0'
       MaxRetries: 3
-      Name: "aws-glue-jupyter-note-wsGlueJob2"
+      Name: "aws-glue-jupyter-wsGlueJob2"
       ExecutionProperty:
         MaxConcurrentRuns: 1
   SourceCrawler:
     Type: 'AWS::Glue::Crawler'
     Properties:
       Role: !Ref GlueRole
-      DatabaseName: 'aws-glue-jupyter-note-wssourcedatabase'
+      DatabaseName: 'aws-glue-jupyter-wssourcedatabase'
       Schedule:
         ScheduleExpression: 'cron(0 12 * * ? *)'
       Targets:
         S3Targets:
           - Path: !Sub 's3://${DataBucket}/source'
-      Name: "aws-glue-jupyter-note-wsSourceCrawler"
+      Name: "aws-glue-jupyter-wsSourceCrawler"
   TargetCrawler:
     Type: 'AWS::Glue::Crawler'
     Properties:
       Role: !Ref GlueRole
-      DatabaseName: 'aws-glue-jupyter-note-wstargetdatabase'
+      DatabaseName: 'aws-glue-jupyter-wstargetdatabase'
       Schedule:
         ScheduleExpression: 'cron(0 12 * * ? *)'
       Targets:
         S3Targets:
           - Path: !Sub 's3://${DataBucket}/landing'
-      Name: "aws-glue-jupyter-note-wsTargetCrawler"
+      Name: "aws-glue-jupyter-wsTargetCrawler"
   sourcedatabase:
     Type: 'AWS::Glue::Database'
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: "aws-glue-jupyter-note-wssourcedatabase"
-        Description: 'aws-glue-jupyter-note-ws Source Catalog'
+        Name: "aws-glue-jupyter-wssourcedatabase"
+        Description: 'aws-glue-jupyter-ws Source Catalog'
   targetdatabase:
     Type: 'AWS::Glue::Database'
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: "aws-glue-jupyter-note-wstargetdatabase"
-        Description: 'aws-glue-jupyter-note-ws Target Catalog'
+        Name: "aws-glue-jupyter-wstargetdatabase"
+        Description: 'aws-glue-jupyter-ws Target Catalog'
   GlueRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -93,7 +93,7 @@ Resources:
             Action: 'sts:AssumeRole'
       Path: '/'
       Policies:
-        - PolicyName: "aws-glue-jupyter-note-wsGluePolicy"
+        - PolicyName: "aws-glue-jupyter-wsGluePolicy"
           PolicyDocument:
             Version: '2012-10-17'
             Statement:

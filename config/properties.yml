@@ -1,3 +1,3 @@
-bucket_name: aws-glue-jupyter-notebook-ws-bucket
+bucket_name: aws-glue-jupyter-ws-bucket
 region: ap-south-1
-stack_name: aws-glue-jupyter-notebook-ws-cf-stack
+stack_name: aws-glue-jupyter-ws-cf-stack
