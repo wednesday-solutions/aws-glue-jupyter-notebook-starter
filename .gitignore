@@ -45,6 +45,6 @@ dist/
 .DS_Store
 .Thumbs.db
 
-src/jobs/**/scripts.py
+src/jobs/**/script.py
 
 landing
