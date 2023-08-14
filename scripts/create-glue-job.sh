@@ -53,7 +53,9 @@ for JOB_DIR in ./src/jobs/job*; do
   fi
   echo "\nBUCKET_NAME=$BUCKET_NAME" >> $JOB_DIR/.env
   yq_command="yq e '.bucket_name="\"$BUCKET_NAME\""' -i config/properties.yml"
+  eval $yq_command
   yq_command="yq e '.region="\"$REGION\""' -i config/properties.yml"
+  eval $yq_command
   yq_command="yq e '.stack_name="\"$STACK_NAME\""' -i config/properties.yml"
   eval $yq_command
 done
