@@ -34,7 +34,7 @@ jobs:
 
       # Convert notebook file to python
       - name: Convert notebook
-        run: ./convert-notebooks-to-scripts.sh
+        run: ./scripts/convert-notebooks-to-scripts.sh
 
       # Get the bucket name from the config/properties.yml
       - name: Read bucket_name from properties.yml
