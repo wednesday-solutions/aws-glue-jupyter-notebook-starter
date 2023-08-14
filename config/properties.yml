@@ -1,3 +1,3 @@
-bucket_name: glue-jupyter-ws-bucket
+bucket_name: glue-jupyter-ws-3-bucket
 region: ap-south-1
-stack_name: glue-jupyter-ws-cf-stack
+stack_name: glue-jupyter-ws-3-cf-stack
