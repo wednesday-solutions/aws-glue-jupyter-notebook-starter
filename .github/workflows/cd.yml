@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - "feat/update-with-library"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
