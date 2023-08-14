@@ -36,6 +36,9 @@ else
 fi
 
 
+./scripts/convert-notebooks-to-scripts.sh
+
+
 for JOB_DIR in ./src/jobs/job*; do
   JOB_NAME=$(basename $JOB_DIR) # Extract job name from folder (e.g., job1, job2)
 
@@ -52,7 +55,7 @@ for JOB_DIR in ./src/jobs/job*; do
     echo "Failed to upload $JOB_NAME/script.py."
   fi
   echo "\nBUCKET_NAME=$BUCKET_NAME" >> $JOB_DIR/.env
-  echo "\nSOURCE_CRAWLER=$PROJECT_NAMESourceCrawler" >> $JOB_DIR/.env
+  echo "\nSOURCE_CRAWLER=${PROJECT_NAME}SourceCrawler" >> $JOB_DIR/.env
 done
 
 yq_command="yq e '.bucket_name="\"$BUCKET_NAME\""' -i config/properties.yml"

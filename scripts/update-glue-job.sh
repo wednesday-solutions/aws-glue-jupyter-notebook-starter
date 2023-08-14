@@ -15,6 +15,9 @@ changes=$(aws cloudformation describe-change-set \
   --change-set-name $STACK_NAME-change-set \
   --query 'StatusReason')
 
+
+echo $changes
+
 # If changes are present, execute the change set
 if [ "$changes" != "\"The submitted information didn't contain changes. Submit different information to create a change set.\"" ]; then
   aws cloudformation execute-change-set \
