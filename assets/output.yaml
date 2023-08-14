@@ -4,7 +4,7 @@ Resources:
   DataBucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: "aws-glue-jupyter-ws-bucket"
+      BucketName: "glue-jupyter-ws-bucket"
   GlueJob1:
     Type: 'AWS::Glue::Job'
     Properties:
@@ -16,13 +16,11 @@ Resources:
         "--TempDir": !Sub 's3://${DataBucket}/temp-dir/'
         "--enable-notebook": "true"
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
-        "--source_crawler": !Ref SourceCrawler
-        "--target_crawler": !Ref TargetCrawler
-        --SOURCE_CRAWLER: sample-ws-mac-23SourceCrawler
+        --SOURCE_CRAWLER: glue-jupyter-wsSourceCrawler
         --JOB_NAME: job1
       GlueVersion: '2.0'
       MaxRetries: 3
-      Name: "aws-glue-jupyter-wsGlueJob1"
+      Name: "glue-jupyter-wsGlueJob1"
       ExecutionProperty:
         MaxConcurrentRuns: 1
   GlueJob2:
@@ -36,51 +34,49 @@ Resources:
         "--TempDir": !Sub 's3://${DataBucket}/temp-dir/'
         "--enable-notebook": "true"
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
-        "--source_crawler": !Ref SourceCrawler
-        "--target_crawler": !Ref TargetCrawler
         --JOB_NAME: "job2"
-        --SOURCE_CRAWLER: sample-ws-mac-23SourceCrawler
+        --SOURCE_CRAWLER: glue-jupyter-wsSourceCrawler
       GlueVersion: '2.0'
       MaxRetries: 3
-      Name: "aws-glue-jupyter-wsGlueJob2"
+      Name: "glue-jupyter-wsGlueJob2"
       ExecutionProperty:
         MaxConcurrentRuns: 1
   SourceCrawler:
     Type: 'AWS::Glue::Crawler'
     Properties:
       Role: !Ref GlueRole
-      DatabaseName: 'aws-glue-jupyter-wssourcedatabase'
+      DatabaseName: 'glue-jupyter-wssourcedatabase'
       Schedule:
         ScheduleExpression: 'cron(0 12 * * ? *)'
       Targets:
         S3Targets:
           - Path: !Sub 's3://${DataBucket}/source'
-      Name: "aws-glue-jupyter-wsSourceCrawler"
+      Name: "glue-jupyter-wsSourceCrawler"
   TargetCrawler:
     Type: 'AWS::Glue::Crawler'
     Properties:
       Role: !Ref GlueRole
-      DatabaseName: 'aws-glue-jupyter-wstargetdatabase'
+      DatabaseName: 'glue-jupyter-wstargetdatabase'
       Schedule:
         ScheduleExpression: 'cron(0 12 * * ? *)'
       Targets:
         S3Targets:
           - Path: !Sub 's3://${DataBucket}/landing'
-      Name: "aws-glue-jupyter-wsTargetCrawler"
+      Name: "glue-jupyter-wsTargetCrawler"
   sourcedatabase:
     Type: 'AWS::Glue::Database'
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: "aws-glue-jupyter-wssourcedatabase"
-        Description: 'aws-glue-jupyter-ws Source Catalog'
+        Name: "glue-jupyter-wssourcedatabase"
+        Description: 'glue-jupyter-ws Source Catalog'
   targetdatabase:
     Type: 'AWS::Glue::Database'
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseInput:
-        Name: "aws-glue-jupyter-wstargetdatabase"
-        Description: 'aws-glue-jupyter-ws Target Catalog'
+        Name: "glue-jupyter-wstargetdatabase"
+        Description: 'glue-jupyter-ws Target Catalog'
   GlueRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -93,7 +89,7 @@ Resources:
             Action: 'sts:AssumeRole'
       Path: '/'
       Policies:
-        - PolicyName: "aws-glue-jupyter-wsGluePolicy"
+        - PolicyName: "glue-jupyter-wsGluePolicy"
           PolicyDocument:
             Version: '2012-10-17'
             Statement:

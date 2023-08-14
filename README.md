@@ -15,7 +15,7 @@ This comes with
 ```
 ├── Dockerfile                                      |-> Custom Dockerfile to run Glue locally with support for .env
 ├── Makefile                                        |-> Makefile that contains all automation
-├── README.md                                       |
+├── README.md                                       
 │
 ├── config                                          |-> Contains configurable properties
 │   ├── properties.yml                              |-> make infra will auto-populates the bucket_name which is then read in the CD script
@@ -31,7 +31,7 @@ This comes with
 │   ├── job1                                        |-> Contains landing data related to job1
 │   │   └── output                                  |-> Contains all of the parts associated to output
 │   └── job2                                        |-> Contains landing data related to job2
-│   │   └── output                                  |-> Contains all of the parts associated to output
+│       └── output                                  |-> Contains all of the parts associated to output
 │
 ├── scripts                                         |-> Contain all of the executables for this project
 │   ├── convert-notebooks-to-scripts.sh             |-> Recursively iterates job folders and convert notebooks to scripts
@@ -41,7 +41,7 @@ This comes with
 │   └── tear-down-glue.sh                           |-> Brings down all created AWS resources 
 │   └── update-glue-job.sh                          |-> Updates the glue job along with other resources via the cd pipeline
 │
-├── src                                             |-> Contains all glue job files and folders
+└── src                                             |-> Contains all glue job files and folders
     └── jobs                                        |-> Contains all glue jobs in individual folders
         ├── job1                                    |-> Contains all data for job1 including env, notebook and the script
         │   ├── notebook.ipynb                      |-> Notebook for job1

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Original file
-GLUE_FILE="assets/glue-template.yaml.j2"
+GLUE_FILE="assets/output.yaml"
 
 # Iterate through the job directories
 for JOB_DIR in src/jobs/*; do

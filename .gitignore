@@ -21,7 +21,7 @@ spark-warehouse/
 .ipynb_checkpoints/
 
 # Environment variables and secrets
-.env
+# .env
 .secrets/
 
 # Credentials file

@@ -16,10 +16,9 @@ Resources:
         "--TempDir": !Sub 's3://${DataBucket}/temp-dir/'
         "--enable-notebook": "true"
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
-        "--source_crawler": !Ref SourceCrawler
-        "--target_crawler": !Ref TargetCrawler
-        --SOURCE_CRAWLER: sample-ws-mac-23SourceCrawler
         --JOB_NAME: job1
+        --SOURCE_CRAWLER: glue-jupyter-wsSourceCrawler
+        --BUCKET_NAME: glue-jupyter-ws-bucket
       GlueVersion: '2.0'
       MaxRetries: 3
       Name: "{{ prefix }}GlueJob1"
@@ -36,10 +35,9 @@ Resources:
         "--TempDir": !Sub 's3://${DataBucket}/temp-dir/'
         "--enable-notebook": "true"
         "--notebook-dir": !Sub 's3://${DataBucket}/notebooks/'
-        "--source_crawler": !Ref SourceCrawler
-        "--target_crawler": !Ref TargetCrawler
         --JOB_NAME: "job2"
-        --SOURCE_CRAWLER: sample-ws-mac-23SourceCrawler
+        --SOURCE_CRAWLER: glue-jupyter-wsSourceCrawler
+        --BUCKET_NAME: glue-jupyter-ws-bucket
       GlueVersion: '2.0'
       MaxRetries: 3
       Name: "{{ prefix }}GlueJob2"

@@ -21,7 +21,7 @@ jobs:
         
       # Set up Python
       - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v3
         with:
           python-version: '3.9'
           
@@ -36,6 +36,10 @@ jobs:
       - name: Convert notebook
         run: ./scripts/convert-notebooks-to-scripts.sh
 
+      # Convert job*/.env to job details
+      - name: convert env args to job-details parameters
+        run: ./scripts/env-to-args.sh
+
       # Get the bucket name from the config/properties.yml
       - name: Read bucket_name from properties.yml
         run: echo "BUCKET_NAME=$(yq e '.bucket_name' config/properties.yml)" >> $GITHUB_ENV
@@ -45,7 +49,7 @@ jobs:
         run: echo "REGION=$(yq e '.region' config/properties.yml)" >> $GITHUB_ENV
 
       # Get the stack_name from the config/properties.yml
-      - name: Read region from properties.yml
+      - name: Read stack_name from properties.yml
         run: echo "STACK_NAME=$(yq e '.stack_name' config/properties.yml)" >> $GITHUB_ENV
 
       - name: Upload to S3
