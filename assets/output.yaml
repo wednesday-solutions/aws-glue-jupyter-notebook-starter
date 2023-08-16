@@ -21,7 +21,8 @@ Resources:
         --BUCKET_NAME: glue-jupyter-ws-3-bucket
         --additional-python-modules: s3://glue-jupyter-ws-3-bucket/lib/utils-0.1-py3-none-any.whl
       GlueVersion: '2.0'
-      MaxRetries: 3
+      MaxRetries: 0
+      AllocatedCapacity: 2
       Name: "glue-jupyter-ws-3GlueJob1"
       ExecutionProperty:
         MaxConcurrentRuns: 1
@@ -41,7 +42,8 @@ Resources:
         --BUCKET_NAME: glue-jupyter-ws-3-bucket
         --additional-python-modules: s3://glue-jupyter-ws-3-bucket/lib/utils-0.1-py3-none-any.whl
       GlueVersion: '2.0'
-      MaxRetries: 3
+      MaxRetries: 0
+      AllocatedCapacity: 2
       Name: "glue-jupyter-ws-3GlueJob2"
       ExecutionProperty:
         MaxConcurrentRuns: 1
