@@ -86,6 +86,22 @@ jobs:
           SOURCE_DIR: './data/raw'
           DEST_DIR: 'source'
 
+      - name: Build utils library
+        run: ./scripts/build-lib.sh utils-0.1-py3-none-any.whl
+
+      - name: Upload library to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: >
+            --delete
+        env:
+          AWS_S3_BUCKET: ${{ env.BUCKET_NAME }}
+          AWS_REGION: ${{ env.REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SOURCE_DIR: './dist'
+          DEST_DIR: 'lib'
+
       # set up AWS Credentials so that we can update the glue job
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1

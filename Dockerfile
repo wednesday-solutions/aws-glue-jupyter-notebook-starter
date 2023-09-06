@@ -6,5 +6,6 @@ RUN pip3 install boto
 RUN pip3 install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_ner_bc5cdr_md-0.5.1.tar.gz
 RUN pip3 install nltk
 RUN pip3 install python-dotenv
-
-# ENV AWS_REGION ap-southeast-1
+RUN mkdir dist/
+ADD dist dist
+RUN pip3 install ./dist/utilities-0.1-py3-none-any.whl
