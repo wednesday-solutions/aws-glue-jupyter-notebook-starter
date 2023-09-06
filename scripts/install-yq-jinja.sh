@@ -15,8 +15,8 @@ install_python() {
 
 # Function to check and install Jinja2
 install_jinja() {
-  if ! pip3 show Jinja2 &> /dev/null; then
-    pip3 install Jinja2
+  if ! pip3 show jinja2-cli &> /dev/null; then
+    pip3 install jinja2-cli
   fi
 }
 
